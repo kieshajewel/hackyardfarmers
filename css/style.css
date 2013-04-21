@@ -185,3 +185,15 @@ nav ul li a {
     margin-bottom: 45px;
     padding: 0 30px 0 30px;
 }
+
+table {
+	width: 65%;
+}
+
+table.Materials {
+	width: 90%;
+}
+
+table.Materials tr td {
+	width: 400px;
+}

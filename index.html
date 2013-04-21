@@ -4,7 +4,91 @@
 		<title>Backyard Poultry Farm</title>
         <link href='http://fonts.googleapis.com/css?family=Glegoo' rel='stylesheet' type='text/css'>
         <link rel='stylesheet' type='text/css' href='css/style.css'/>
-        <script type="text/javascript" src="js/script.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+		<style type="text/css">
+			#width_slider {
+				width: 250px;
+				margin: 15px;
+			}
+
+			#height_slider {
+				height:145px;
+				margin:15px
+			}
+
+			#width_label {
+				margin-left: 48px;
+			}
+
+			#area_label {
+				position: relative;
+				left: 60px;
+				bottom: 56px;
+				float: left;
+			}
+
+			#chickens_label {
+				position: relative;
+				float: left;
+				left: 58px;
+				bottom: 125px;
+				font-size: 28px;
+				clear: right;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var width = 50, height = 50;
+
+			$(function() {
+
+				$('#height_slider').slider({
+					min: 1,
+					max: 100,
+					value: height,
+					orientation: "vertical",
+					range: "min",
+					animate: true,
+					slide: function(e, ui) {
+						height = ui.value;
+						$( "#height_label" ).html( height + 'ft' );
+						calculate();
+					}
+				});
+
+				$('#width_slider').slider({
+					min: 1,
+					max: 100,
+					value: width,
+					orientation: "horizontal",
+					range: "min",
+					animate: true,
+					slide: function(e, ui) {
+						width = ui.value;
+						$( "#width_label" ).html( width + 'ft' );
+						calculate();
+					}
+				});
+
+				// Initial update
+				calculate();
+			});
+
+			function calculate() {
+				var area = width * height;
+
+				$( "#area_label" ).html(area + ' ft<sup>2</sup>');
+
+				var chickens = parseInt( area / 35);
+				$( "#chickens_label" ).html(chickens + ' chickens');
+
+				// Update table data
+				updateMaterialsList();
+			}
+		</script>
 	</head>
 	
     
@@ -33,134 +117,132 @@
                 </article>
             </section>
             <section class="get-started">
+
                 <h2>Calculate</h2>
-                <p>Blurb about how this works - Suspendisse euismod turpis vitae elit feugiat dignissim. Mauris nec magna enim, tincidunt ornare arcu. Etiam venenatis dolor in magna gravida varius. Nunc et mi a sapien viverra varius ac ut orci. Pellentesque id urna eu velit commodo ornare quis venenatis libero.</p>
-                
-                <p>Enter the width: <input name="measure1" id="measure1" type="number" value="10"></p>
-   	 <p>Enter the length: <input name="measure2" id="measure2" type="number" value="10"></p>
-   	 <button onclick="updateMaterialsList()">Enter</button>
 
-   	 <!--Makes a Table/List of the Symbol Letter, Quantity, and Material-->
-   	 <table id="Materials">
-   		 <tr>
-   			 <th>Item  </th>
-   			 <th>Quantity</th>
-   			 <th>Material</th>
-   		 </tr>
-   		 <tr>
-   			 <td>A</td>
-   			 <td>8</td>
-   			 <td><span id="A2"></span> 1" Sch 40 PVC</td>
-   		 </tr>
-   			 <td>B</td>
-   			 <td><span id="B1"></span> </td>
-   			 <td>1" Sch 40 PVC</td>
-   		 </tr>
-   		 <tr>
-   			 <td>C</td>
-   			 <td><span id="C1"></span></td>
-   			 <td>1" Sch 40 PVC</td>
-   		 </tr>
-   		 <tr>
-   			 <td>D</td>
-   			 <td>1</td>
-   			 <td><span id="D2"></span> 1" Sch 40 PVC</td>
-   		 </tr>
-   		 <tr>
-   			 <td>E</td>
-   			 <td>5</td>
-   			 <td>4 inch 1-1/4" Sch 40 PVC</td>
-   		 </tr>
-   		 <tr>
-   			 <td>F</td>
-   			 <td>20</td>
-   			 <td>1" Snap Clamps 4"</td>
-   		 </tr>
-   		 <tr>
-   			 <td>G</td>
-   			 <td>5</td>
-   			 <td>1" Slip-T's</td>
-   		 </tr>
-   		 <tr>
-   			 <td>H</td>
-   			 <td>12</td>
-   			 <td>1" 3-way Connector</td>
-   		 </tr>
-   		 <tr>
-   			 <td>I</td>
-   			 <td>6</td>
-   			 <td>1" 90 degree Elbow</td>
-   		 </tr>
-   		 <tr>
-   			 <td>J</td>
-   			 <td>7</td>
-   			 <td>1" 4-way Connector</td>
-   		 </tr>
-   		 <tr>
-   			 <td>K</td>
-   			 <td>3</td>
-   			 <td>1" 5-way Connector</td>
-   		 </tr>
-   		 <tr>
-   			 <td>L</td>
-   			 <td>1</td>
-   			 <td><span id="L2"></span> Tarp or Shade Cloth</td>
-   		 </tr>
-   		 <tr>
-   			 <td>M</td>
-   			 <td>1</td>
-   			 <td><span id="M2"></span> Chicken Wire</td>
-   		 </tr>
-   		 <tr>
-   			 <td>P</td>
-   			 <td><span id="P1"></span></td>
-   			 <td>3-1/2" Plastic Zip Ties</td>
-   		 </tr>
-   		 <tr>
-   			 <td>S</td>
-   			 <td>25</td>
-   			 <td>Self Tapping Screws (3/4" Long)</td>
-   		 </tr>
-   		 <tr>
-   			 <td>T</td>
-   			 <td>2</td>
-   			 <td>Bungee Cords</td>
-   		 </tr>
-   		 <tr>
-   			 <td>U</td>
-   			 <td> </td>
-   			 <td>PVC Glue</td>
-   		 </tr>
-   		 <tr>
-   			 <td>W</td>
-   			 <td>20</td>
-   			 <td><span id="W2"></span> 1" Sch 40 PVC</td>
-   		 </tr>
-   	 </table>
+				<table border="0">
+				<tr>
+					<td>
+						<!--slider -->
+				<span id="height_label">50 ft</span>
+				<div id="height_slider"></div>
+				<span id="area_label"></span>
+				<span id="chickens_label"></span>
+				<div id="width_slider"></div>
+				<span id="width_label">50 ft</span>
+					</td>
+					<td>
+
+					 <!--Makes a Table/List of the Symbol Letter, Quantity, and Material-->
+					 <table id="Materials" class="table">
+						 <tr>
+							 <th>Item  </th>
+							 <th>Quantity</th>
+							 <th>Material</th>
+						 </tr>
+						 <tr>
+							 <td>A</td>
+							 <td>8</td>
+							 <td><span id="A2"></span> 1" Sch 40 PVC</td>
+						 </tr>
+							 <td>B</td>
+							 <td><span id="B1"></span> </td>
+							 <td>1" Sch 40 PVC</td>
+						 </tr>
+						 <tr>
+							 <td>C</td>
+							 <td><span id="C1"></span></td>
+							 <td>1" Sch 40 PVC</td>
+						 </tr>
+						 <tr>
+							 <td>D</td>
+							 <td>1</td>
+							 <td><span id="D2"></span> 1" Sch 40 PVC</td>
+						 </tr>
+						 <tr>
+							 <td>E</td>
+							 <td>5</td>
+							 <td>4 inch 1-1/4" Sch 40 PVC</td>
+						 </tr>
+						 <tr>
+							 <td>F</td>
+							 <td>20</td>
+							 <td>1" Snap Clamps 4"</td>
+						 </tr>
+						 <tr>
+							 <td>G</td>
+							 <td>5</td>
+							 <td>1" Slip-T's</td>
+						 </tr>
+						 <tr>
+							 <td>H</td>
+							 <td>12</td>
+							 <td>1" 3-way Connector</td>
+						 </tr>
+						 <tr>
+							 <td>I</td>
+							 <td>6</td>
+							 <td>1" 90 degree Elbow</td>
+						 </tr>
+						 <tr>
+							 <td>J</td>
+							 <td>7</td>
+							 <td>1" 4-way Connector</td>
+						 </tr>
+						 <tr>
+							 <td>K</td>
+							 <td>3</td>
+							 <td>1" 5-way Connector</td>
+						 </tr>
+						 <tr>
+							 <td>L</td>
+							 <td>1</td>
+							 <td><span id="L2"></span> Tarp or Shade Cloth</td>
+						 </tr>
+						 <tr>
+							 <td>M</td>
+							 <td>1</td>
+							 <td><span id="M2"></span> Chicken Wire</td>
+						 </tr>
+						 <tr>
+							 <td>P</td>
+							 <td><span id="P1"></span></td>
+							 <td>3-1/2" Plastic Zip Ties</td>
+						 </tr>
+						 <tr>
+							 <td>S</td>
+							 <td>25</td>
+							 <td>Self Tapping Screws (3/4" Long)</td>
+						 </tr>
+						 <tr>
+							 <td>T</td>
+							 <td>2</td>
+							 <td>Bungee Cords</td>
+						 </tr>
+						 <tr>
+							 <td>U</td>
+							 <td> </td>
+							 <td>PVC Glue</td>
+						 </tr>
+						 <tr>
+							 <td>W</td>
+							 <td>20</td>
+							 <td><span id="W2"></span> 1" Sch 40 PVC</td>
+						 </tr>
+					 </table>
+					</td>
+				</tr>
+				</table>
 
 
-   	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-   	 </script>
-   	 
    	 <script>
 
 function updateMaterialsList()
 {
-//I manually set the variables here & assumed the site will grab the length & width from the sliders :D
-var slider1 = document.getElementById('measure1').value;
-var slider2 = document.getElementById('measure2').value;
-//Length MUST BE the greater number, if statements below double checks and assigns accordingly
-if (slider1 > slider2)
- {
-var L = slider1;
-var W = slider2;
- }
- else
- {
-var L = slider2;
-var W = slider1;
- }
- 
+
+ L = height;
+ W = width;
+
 //If width is under 10 ft, less B and C are needed
 if (W < 10)
  {
@@ -177,7 +259,7 @@ $("#A2").html(calculateFeetAndInchesAExtension(L,W))
 $("#D2").html(calculateFeetAndInches(W/2 -(3/12)))
 $("#L2").html(calculateFeetAndInches(W) + " x " + calculateFeetAndInches(2*W))
 $("#M2").html(calculateFeetAndInches(W/2 + 1) + " x " + calculateFeetAndInches(2*L+2*W+2*(L-W/2)))
-$("#P1").html(L*W*1.3)
+$("#P1").html(parseInt(L*W*1.3))
 $("#W2").html(calculateFeetAndInches(W/2))
 
 }
